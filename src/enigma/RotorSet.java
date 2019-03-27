@@ -2,31 +2,31 @@ package enigma;
 
 import java.util.*;
 
-public class RotorSet
+class RotorSet
 {
     // Definisco un arraylist come rotore singolo da esportare
 
-    private ArrayList<ArrayList<Character>> rotorBox = new ArrayList<ArrayList<Character>>();
+    private ArrayList<ArrayList<Character>> rotorBox = new ArrayList<>();
     
     
-    public void setRotor (int rotorNumber , char firstLeft , char firstRight)
+    void setRotor(int rotorNumber, char firstLeft, char firstRight)
     {
     	/* Con questo metodo creo un oggetto rotore con cui costruire la mia macchina. Il rotore avrà una sezione di ingresso ed una di uscita del medesimo array che saranno sfalsate seguendo la lettera iniziale definita 
     	 *  dall'utente. Tale differenza costituirà la permutazione della lettera da criptare al passaggio della stessa per il rotore */
     	
     	// Definisco un set di combinazioni da usare nella costruzione dei rotori 
     	
-        ArrayList<Character> rotorSet1 = new ArrayList<Character>(Arrays.asList('w','e','r','t','z','u','i','o','a','s','d','f','g','h','j','k','p','y','x','c','v','b','n','m','l','q'));
-        ArrayList<Character> rotorSet2 = new ArrayList<Character>(Arrays.asList('d','e','b','x','u','r','c','g','m','q','s','y','n','p','f','l','o','i','v','j','t','z','w','h','k','a'));
-        ArrayList<Character> rotorSet3 = new ArrayList<Character>(Arrays.asList('o','f','y','r','q','z','g','m','h','j','w','e','a','u','v','l','k','i','t','p','n','c','b','s','d','x'));
-        ArrayList<Character> rotorSet4 = new ArrayList<Character>(Arrays.asList('i','h','u','g','t','e','v','j','c','l','x','z','r','a','q','n','b','f','s','o','y','p','w','d','k','m'));
-        ArrayList<Character> rotorSet5 = new ArrayList<Character>(Arrays.asList('b','q','f','p','w','h','n','m','e','o','c','a','v','j','x','l','r','y','d','u','i','g','z','s','k','t'));
-        ArrayList<Character> rotorSet6 = new ArrayList<Character>(Arrays.asList('a','b','y','q','m','h','e','w','l','v','n','x','z','i','f','u','k','t','c','j','g','d','s','o','p','r'));
-        ArrayList<Character> rotorSet7 = new ArrayList<Character>(Arrays.asList('e','r','t','z','u','i','o','a','s','d','f','g','h','j','k','p','y','x','c','v','b','n','m','l','q','w'));
+        ArrayList<Character> rotorSet1 = new ArrayList<>(Arrays.asList('w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'p', 'y', 'x', 'c', 'v', 'b', 'n', 'm', 'l', 'q'));
+        ArrayList<Character> rotorSet2 = new ArrayList<>(Arrays.asList('d','e','b','x','u','r','c','g','m','q','s','y','n','p','f','l','o','i','v','j','t','z','w','h','k','a'));
+        ArrayList<Character> rotorSet3 = new ArrayList<>(Arrays.asList('o','f','y','r','q','z','g','m','h','j','w','e','a','u','v','l','k','i','t','p','n','c','b','s','d','x'));
+        ArrayList<Character> rotorSet4 = new ArrayList<>(Arrays.asList('i','h','u','g','t','e','v','j','c','l','x','z','r','a','q','n','b','f','s','o','y','p','w','d','k','m'));
+        ArrayList<Character> rotorSet5 = new ArrayList<>(Arrays.asList('b','q','f','p','w','h','n','m','e','o','c','a','v','j','x','l','r','y','d','u','i','g','z','s','k','t'));
+        ArrayList<Character> rotorSet6 = new ArrayList<>(Arrays.asList('a','b','y','q','m','h','e','w','l','v','n','x','z','i','f','u','k','t','c','j','g','d','s','o','p','r'));
+        ArrayList<Character> rotorSet7 = new ArrayList<>(Arrays.asList('e','r','t','z','u','i','o','a','s','d','f','g','h','j','k','p','y','x','c','v','b','n','m','l','q','w'));
         
         // Per comodità di gestione raggruppo i modelli dei rotori in un arraylist
         
-        ArrayList<ArrayList<Character>> rotorMatrix = new ArrayList<ArrayList<Character>>(Arrays.asList(rotorSet1,rotorSet2,rotorSet3,rotorSet4,rotorSet5,rotorSet6,rotorSet7));
+        ArrayList<ArrayList<Character>> rotorMatrix = new ArrayList<>(Arrays.asList(rotorSet1,rotorSet2,rotorSet3,rotorSet4,rotorSet5,rotorSet6,rotorSet7));
         
         // Trovo l'indice dell'array matrice scelto sulla base della lettera indicata dall'utente come prima lettera dei semirotori per creare le due parti del rotore finale
         
@@ -39,8 +39,8 @@ public class RotorSet
 		
     	// Creo i due arraylist che serviranno a costruire il rotore
     	
-    	ArrayList<Character> rotorL = new ArrayList<Character>();
-    	ArrayList<Character> rotorR = new ArrayList<Character>();
+    	ArrayList<Character> rotorL = new ArrayList<>();
+    	ArrayList<Character> rotorR = new ArrayList<>();
 	
     	// Popolo il sotto array1 di destinazione partendo dalla lettera all'indice dell'array matrice ricavato sopra scorrendo l'array matrice dall'indice alla fine.
     	
@@ -79,26 +79,30 @@ public class RotorSet
     	// Unisco le due parti nell'array rotore finale
     	// Se il rotore è vuoto, aggiungo le due parti.
     	// Se già pieno, lo resetto prima.
-    	
-    	if (this.rotorBox.isEmpty())
-    	{
-    		this.rotorBox.add(rotorL);
-    		this.rotorBox.add(rotorR);
-    	}
-    	else
-    	{
-    		this.rotorBox.clear();
-    		this.rotorBox.add(rotorL);
-    		this.rotorBox.add(rotorR);
-    	}
-    }
-    
-    public void setReflector (char first)
+
+		joinRotorSides(rotorL, rotorR);
+	}
+
+	private void joinRotorSides(ArrayList<Character> rotorL, ArrayList<Character> rotorR) {
+		if (this.rotorBox.isEmpty())
+		{
+			this.rotorBox.add(rotorL);
+			this.rotorBox.add(rotorR);
+		}
+		else
+		{
+			this.rotorBox.clear();
+			this.rotorBox.add(rotorL);
+			this.rotorBox.add(rotorR);
+		}
+	}
+
+	void setReflector(char first)
     {
         // Definisco un set di refletor da usare nella creazione del reflector reale
     	
-        ArrayList<Character> reflectorL = new ArrayList<Character>(Arrays.asList('i','h','u','g','t','e','v','j','c','l','x','z','r','a','q','n','b','f','s','o','y','p','w','d','k','m'));
-        ArrayList<Character> reflectorR = new ArrayList<Character>(Arrays.asList('e','r','t','z','u','i','o','a','s','d','f','g','h','j','k','p','y','x','c','v','b','n','m','l','q','w'));
+        ArrayList<Character> reflectorL = new ArrayList<>(Arrays.asList('i','h','u','g','t','e','v','j','c','l','x','z','r','a','q','n','b','f','s','o','y','p','w','d','k','m'));
+        ArrayList<Character> reflectorR = new ArrayList<>(Arrays.asList('e','r','t','z','u','i','o','a','s','d','f','g','h','j','k','p','y','x','c','v','b','n','m','l','q','w'));
         
         // Lavoro in modo analogo a quanto già visto nella creazione dei rotori.
         // L'unica differenza risiede nel fatto che, per questo particolare rotore, l'indice della lettera indicata vale per entrambe le sottoparti del rotore
@@ -106,8 +110,8 @@ public class RotorSet
     	int index = reflectorL.indexOf(first) ;
     	int i = 0 ;
     	
-    	ArrayList<Character> rotorL = new ArrayList<Character>();
-    	ArrayList<Character> rotorR = new ArrayList<Character>();
+    	ArrayList<Character> rotorL = new ArrayList<>();
+    	ArrayList<Character> rotorR = new ArrayList<>();
 		
     	while (index < reflectorL.size())
 		{
@@ -124,29 +128,19 @@ public class RotorSet
             rotorR.add(reflectorR.get(i)) ;
             i++;
     	}
-    	if (this.rotorBox.isEmpty())
-    	{
-    		this.rotorBox.add(rotorL);
-    		this.rotorBox.add(rotorR);
-    	}
-    	else
-    	{
-    		this.rotorBox.clear();
-    		this.rotorBox.add(rotorL);
-    		this.rotorBox.add(rotorR);
-    	}
-    }
+		joinRotorSides(rotorL, rotorR);
+	}
     
     // Rendo disponibile il rotore creato verso l'esterno 
     
-    public ArrayList<ArrayList<Character>> getRotor()
+    ArrayList<ArrayList<Character>> getRotor()
     {
     	return this.rotorBox ;
     }
     
     // Sposto il rotore avanti di una posizione, sottraendo una lettera.
     
-    public void moveRotor()
+    void moveRotor()
 	{
     	
 		for (int i=0 ; i < this.rotorBox.get(0).size() ; i++)
@@ -175,11 +169,9 @@ public class RotorSet
     
     // Cerco l'indice della lettera in ingresso nella prima parte del vettore nel sua parte d'uscita
     
-	public int getNextCharRotorIndex (char character , int side )
+	int getNextCharRotorIndex(char character, int side)
 	{
-		int rotorBoxIndex = this.rotorBox.get(side).indexOf(character) ;
-		
-		return rotorBoxIndex ;
+		return this.rotorBox.get(side).indexOf(character);
 	}
 }
 

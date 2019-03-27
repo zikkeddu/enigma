@@ -2,16 +2,16 @@ package enigma;
 
 import java.util.Scanner;
 
-public class AlphaAndOmega
+class AlphaAndOmega
 {	
 	private CryptoSettings machine = new CryptoSettings() ;
 	private Scanner input;
-	private String rotorAssociation = new String() ;
-	private String rotorOrder = new String() ;
+	private String rotorAssociation = "";
+	private String rotorOrder = "" ;
 	
 	// Aquisisco i parametri di settaggio della macchina, la costruisco e la avvio.
 	
-	public void machineSet() 
+	void machineSet()
 	{
 		this.input = new Scanner(System.in); // Creo un oggetto scanner per l'acquisizione da console
 		
@@ -22,7 +22,7 @@ public class AlphaAndOmega
 
 		// Se l'input non è conforme, genero un messaggio di errore fino al corretto inserimento
 		
-        while (this.rotorAssociation.toLowerCase().matches("^[a-z][a-z]\\.[a-z][a-z]\\.[a-z][a-z]\\.[a-z]$") != true) 
+        while (!this.rotorAssociation.toLowerCase().matches("^[a-z][a-z]\\.[a-z][a-z]\\.[a-z][a-z]\\.[a-z]$"))
         {
     		System.out.print("Input errato! Sono accettate solo stringhe copie di caratteri dell'alfabeto divise da punti (es. pq.ws.ed.r)! Riprovate: \n") ;
     		this.rotorAssociation = this.input.nextLine() ;
@@ -35,7 +35,7 @@ public class AlphaAndOmega
 		
 		// Se l'input non è conforme, genero un messaggio di errore fino al corretto inserimento
 		
-		while (this.rotorOrder.matches("\\b(?!(?:.\\B)*(.)(?:\\B.)*\\1)[123]+\\b") != true)
+		while (!this.rotorOrder.matches("\\b(?!(?:.\\B)*(.)(?:\\B.)*\\1)[123]+\\b"))
 		{
 			System.out.print("Input errato! Potete usare solo numeri dall'1 al 3 e solo una volta per numero (es. 213 o 312). Riprova: \n") ;
 			this.rotorOrder = this.input.nextLine() ;
@@ -55,10 +55,10 @@ public class AlphaAndOmega
 	private void machineOn()
 	{
 		
-		String text = new String() ;
+		String text;
 		CryptDecrypt algoritm = new CryptDecrypt() ;
-		Boolean term = false ;
-		Boolean checkText = false ;
+		boolean term;
+		boolean checkText = false ;
 				
 		do
 		{
@@ -94,7 +94,7 @@ public class AlphaAndOmega
 				}
 				
 				
-			} while (checkText == false) ;
+			} while (!checkText) ;
 			
 			// Elaboro e stampo a video il testo
 			
@@ -116,7 +116,7 @@ public class AlphaAndOmega
 				this.machine.buildResetEnigma(this.rotorAssociation, this.rotorOrder);
 			}
 			
-		} while (term == false) ;
+		} while (!term) ;
 		
 		input.close() ;
 	}

@@ -1,11 +1,11 @@
 package enigma;
 
-public class CryptDecrypt {
+class CryptDecrypt {
 	
-	public StringBuilder cryptDecrypt (String text , CryptoSettings machine)
+	StringBuilder cryptDecrypt(String text, CryptoSettings machine)
 	{
 		StringBuilder enigmaText = new StringBuilder() ; // Istanzio una stringa dinamica a cui poter aggiungere testo e spazi a piacimento.
-		int rotor1Circle = 0 , rotor2Circle = 0 , rotor3Circle = 0 , index = 0 ; // Contatori dei giri dei rotori e indice per succesivo lavoro
+		int rotor1Circle = 0 , rotor2Circle = 0 , rotor3Circle = 0 , index; // Contatori dei giri dei rotori e indice per succesivo lavoro
 		
 		char[] textCharArray = text.toLowerCase().toCharArray() ; // Converto eventuale testo maiuscolo e riverso la stringa da elaborare in un array di caratteri
 		
